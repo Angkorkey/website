@@ -25,20 +25,14 @@
     <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white text-black p-6 rounded-lg shadow-lg max-w-sm text-center">
             <p class="text-lg font-semibold">Open in your default browser?</p>
-            <p class="text-gray-600 mt-2">To ensure the best experience, open this link in your default browser.</p>
             
-            <!-- Buttons -->
-            <div class="mt-4 flex justify-center gap-4">
-                <button onclick="openInDefaultBrowser()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700">
-                    Open in Browser
-                </button>
-                <button onclick="copyToClipboard()" class="bg-gray-300 text-black px-4 py-2 rounded-lg font-medium hover:bg-gray-400">
-                    Copy Link
-                </button>
-            </div>
+            <!-- "Open in Browser" Button -->
+            <button onclick="openInDefaultBrowser()" class="mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700">
+                Open in Browser
+            </button>
 
             <!-- Close Popup -->
-            <button onclick="closePopup()" class="mt-4 text-gray-500 text-sm hover:text-gray-700">Cancel</button>
+            <button onclick="closePopup()" class="mt-4 block text-gray-500 text-sm hover:text-gray-700">Cancel</button>
         </div>
     </div>
 
@@ -54,7 +48,7 @@
         function openInDefaultBrowser() {
             var url = "https://angkorkey-shop.my.canva.site";
 
-            // Try to open in a new tab
+            // Try opening in a new tab
             var newWindow = window.open(url, "_blank");
 
             // If pop-up is blocked, redirect instead
@@ -62,14 +56,6 @@
                 window.location.assign(url);
             }
 
-            closePopup(); // Close modal after action
-        }
-
-        function copyToClipboard() {
-            var copyText = "https://angkorkey-shop.my.canva.site";
-            navigator.clipboard.writeText(copyText).then(() => {
-                alert("✅ Link copied! Open your browser and paste it.");
-            });
             closePopup(); // Close modal after action
         }
     </script>
