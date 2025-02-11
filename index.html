@@ -7,33 +7,45 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-black text-white flex flex-col items-center justify-center min-h-screen p-6">
-  <img src="./Untitled design (4).png" alt="Logo" class="mb-6 w-56 h-56 drop-shadow-lg"> 
-  <div class="text-center p-8 border border-gray-700 rounded-xl shadow-2xl bg-gray-900 max-w-md">
-      <h1 class="text-4xl font-extrabold mb-4 text-gray-100">Welcome to Angkorkey</h1>
-      <p class="text-lg mb-6 text-gray-300">Please contact us by clicking the button below.</p>
-      <button onclick="openInDefaultBrowser()" class="bg-white text-black px-6 py-3 rounded-lg shadow-lg text-lg font-semibold transition transform hover:scale-105 hover:bg-gray-300">
-          Contact Us
-      </button>
-  </div>
+    <img src="./Untitled design (4).png" alt="Logo" class="mb-6 w-56 h-56 drop-shadow-lg"> 
+    <div class="text-center p-8 border border-gray-700 rounded-xl shadow-2xl bg-gray-900 max-w-md">
+        <h1 class="text-4xl font-extrabold mb-4 text-gray-100">Welcome! Angkorkey</h1>
+        <p class="text-lg mb-6 text-gray-300">Please contact us by clicking the button below.</p>
+        <button onclick="openInDefaultBrowser()" class="bg-white text-black px-6 py-3 rounded-lg shadow-lg text-lg font-semibold transition transform hover:scale-105 hover:bg-gray-300">
+            Contact Us
+        </button>
+        <p id="copyText" class="hidden mt-4 text-red-400">If the button doesn't work, <br> copy and paste this link in your browser:</p>
+        <p id="copyLink" class="hidden text-blue-400 cursor-pointer mt-2 underline" onclick="copyToClipboard()">https://angkorkey-shop.my.canva.site</p>
+    </div>
 
-  <script>
-       function openInDefaultBrowser() {
+    <script>
+        function openInDefaultBrowser() {
             var url = "https://angkorkey-shop.my.canva.site";
 
-            // Try to open in the default browser for Android
-            if (navigator.userAgent.includes("Android")) {
-                window.location.href = "intent://" + url.replace("https://", "") + "#Intent;scheme=https;package=com.android.chrome;end;";
-                return;
-            }
+            // Detect TikTok browser
+            var isTikTok = navigator.userAgent.toLowerCase().includes("tiktok");
+            
+            if (isTikTok) {
+                // Show the copy link option if TikTok browser is detected
+                document.getElementById("copyText").classList.remove("hidden");
+                document.getElementById("copyLink").classList.remove("hidden");
+            } else {
+                // Try opening in a new tab
+                var newWindow = window.open(url, "_blank");
 
-            // Open the link in a new tab
-            var newWindow = window.open(url, "_blank");
-
-            // If the popup is blocked, try setting the location directly
-            if (!newWindow || newWindow.closed || typeof newWindow.closed == "undefined") {
-                window.location.href = url;
+                // If popup is blocked, force redirect
+                if (!newWindow || newWindow.closed || typeof newWindow.closed == "undefined") {
+                    window.location.assign(url);
+                }
             }
         }
-  </script>
+
+        function copyToClipboard() {
+            var copyText = "https://angkorkey-shop.my.canva.site";
+            navigator.clipboard.writeText(copyText).then(() => {
+                alert("Link copied! Open your browser and paste it.");
+            });
+        }
+    </script>
 </body>
 </html>
