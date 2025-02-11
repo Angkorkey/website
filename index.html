@@ -17,16 +17,23 @@
   </div>
 
   <script>
-      function openInDefaultBrowser() {
-          var url = "https://angkorkey-shop.my.canva.site";
-          var anchor = document.createElement('a');
-          anchor.href = url;
-          anchor.target = "_blank";
-          anchor.rel = "noopener noreferrer";
-          document.body.appendChild(anchor);
-          anchor.click();
-          document.body.removeChild(anchor);
-      }
+       function openInDefaultBrowser() {
+            var url = "https://angkorkey-shop.my.canva.site";
+
+            // Try to open in the default browser for Android
+            if (navigator.userAgent.includes("Android")) {
+                window.location.href = "intent://" + url.replace("https://", "") + "#Intent;scheme=https;package=com.android.chrome;end;";
+                return;
+            }
+
+            // Open the link in a new tab
+            var newWindow = window.open(url, "_blank");
+
+            // If the popup is blocked, try setting the location directly
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == "undefined") {
+                window.location.href = url;
+            }
+        }
   </script>
 </body>
 </html>
